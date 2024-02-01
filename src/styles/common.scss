@@ -5,6 +5,10 @@ button {
   border-radius: 5px;
   padding: 10px;
   font-weight: 600;
+
+  &:hover {
+    background-color: $light-purple;
+  }
 }
 
 textarea {
