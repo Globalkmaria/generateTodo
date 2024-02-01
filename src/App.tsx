@@ -5,6 +5,7 @@ import "./styles/common.scss";
 import "./App.scss";
 
 import { generateTodo } from "./utils";
+import { SAMPLE_CONTENT } from "./const";
 
 export interface Options {
   ignoreBlankLines: boolean;
@@ -12,7 +13,7 @@ export interface Options {
 }
 
 function App() {
-  const [content, setContent] = useState("");
+  const [content, setContent] = useState(SAMPLE_CONTENT);
   const [copiedState, setCopiedState] = useState(false);
   const [options, setOptions] = useState({
     ignoreBlankLines: false,
