@@ -13,5 +13,5 @@ Happy Listing!
 
 ## Snapshot
 
-  <img src="./snap-en.png" alt="image" width="700" height="400">
-  <img src="./snap-kr.png" alt="image" width="700" height="400">
+  <img src="./snap-en.png" alt="image" width="900">
+  <img src="./snap-kr.png" alt="image" width="900">
