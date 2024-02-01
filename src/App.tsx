@@ -6,21 +6,44 @@ import "./App.scss";
 
 import { generateTodo } from "./utils";
 
+export interface Options {
+  ignoreBlankLines: boolean;
+  removeUnderscore: boolean;
+}
+
 function App() {
   const [content, setContent] = useState("");
+  const [copiedState, setCopiedState] = useState(false);
+  const [options, setOptions] = useState({
+    ignoreBlankLines: false,
+    removeUnderscore: false,
+  });
+
+  const contentTodo = content.length ? generateTodo(content, options) : "";
+  const copyButtonText = copiedState ? "Copied!" : "Copy";
+
+  const handleOptionsChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setOptions({
+      ...options,
+      [e.target.name]: e.target.checked,
+    });
+    if (copiedState) setCopiedState(false);
+  };
 
   const handleContentChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     setContent(e.target.value);
+    if (copiedState) setCopiedState(false);
   };
 
-  const contentTodo = generateTodo(content);
-
-  const handleCopy = () => navigator.clipboard.writeText(contentTodo);
+  const handleCopy = () => {
+    navigator.clipboard.writeText(contentTodo);
+    setCopiedState(true);
+  };
 
   return (
     <div className="app">
       <header>
-        <h1 className="title">- [ ] content todo generator</h1>
+        <h1 className="title">- [ ] todo generator</h1>
         <div>
           Made by{" "}
           <a target="_blank" href="https://github.com/Globalkmaria">
@@ -29,23 +52,43 @@ function App() {
         </div>
       </header>
       <main>
-        <textarea
-          className="box textarea"
-          name=""
-          id="content"
-          placeholder="Your content..."
-          autoComplete="off"
-          autoCorrect="off"
-          autoCapitalize="off"
-          spellCheck="false"
-          onChange={handleContentChange}
-          value={content}
-        />
-        <div className="result box">
-          <pre>{contentTodo}</pre>
-          <button className="copy_btn" onClick={handleCopy}>
-            Copy
-          </button>
+        <div className="options noselect">
+          <label>
+            <input
+              name="ignoreBlankLines"
+              type="checkbox"
+              onChange={handleOptionsChange}
+            />
+            Ignore blank lines
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="removeUnderscore"
+              onChange={handleOptionsChange}
+            />
+            Remove leading underscores
+          </label>
+        </div>
+        <div className="generator">
+          <textarea
+            className="box textarea"
+            name=""
+            id="content"
+            placeholder="Your content..."
+            autoComplete="off"
+            autoCorrect="off"
+            autoCapitalize="off"
+            spellCheck="false"
+            onChange={handleContentChange}
+            value={content}
+          />
+          <div className="result box">
+            <pre>{contentTodo}</pre>
+            <button className="copy_btn" onClick={handleCopy}>
+              {copyButtonText}
+            </button>
+          </div>
         </div>
       </main>
     </div>
