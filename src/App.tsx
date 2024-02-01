@@ -42,55 +42,57 @@ function App() {
 
   return (
     <div className="app">
-      <header>
-        <h1 className="title">- [ ] todo generator</h1>
-        <div>
-          Made by{" "}
-          <a target="_blank" href="https://github.com/Globalkmaria">
-            Maria
-          </a>
-        </div>
-      </header>
-      <main>
-        <div className="options noselect">
-          <label>
-            <input
-              name="ignoreBlankLines"
-              type="checkbox"
-              onChange={handleOptionsChange}
-            />
-            Ignore blank lines
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="removeUnderscore"
-              onChange={handleOptionsChange}
-            />
-            Remove leading underscores
-          </label>
-        </div>
-        <div className="generator">
-          <textarea
-            className="box textarea"
-            name=""
-            id="content"
-            placeholder="Your content..."
-            autoComplete="off"
-            autoCorrect="off"
-            autoCapitalize="off"
-            spellCheck="false"
-            onChange={handleContentChange}
-            value={content}
-          />
-          <div className="result box">
-            <pre>{contentTodo}</pre>
-            <button className="copy_btn" onClick={handleCopy}>
-              {copyButtonText}
-            </button>
+      <div className="container">
+        <header>
+          <h1 className="title">- [ ] todo generator</h1>
+          <div>
+            Made by{" "}
+            <a target="_blank" href="https://github.com/Globalkmaria">
+              Maria
+            </a>
           </div>
-        </div>
-      </main>
+        </header>
+        <main>
+          <div className="options noselect">
+            <label>
+              <input
+                name="ignoreBlankLines"
+                type="checkbox"
+                onChange={handleOptionsChange}
+              />
+              Ignore blank lines
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                name="removeUnderscore"
+                onChange={handleOptionsChange}
+              />
+              Remove leading underscores
+            </label>
+          </div>
+          <div className="generator">
+            <textarea
+              className="box textarea"
+              name=""
+              id="content"
+              placeholder="Your content..."
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="off"
+              spellCheck="false"
+              onChange={handleContentChange}
+              value={content}
+            />
+            <div className="result box">
+              <pre>{contentTodo}</pre>
+              <button className="copy_btn" onClick={handleCopy}>
+                {copyButtonText}
+              </button>
+            </div>
+          </div>
+        </main>
+      </div>
     </div>
   );
 }

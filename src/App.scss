@@ -1,13 +1,18 @@
 @import "./styles/__theme.scss";
 
 .app {
+  background-color: $grey;
+  color: white;
+}
+
+.container {
   display: flex;
   flex-direction: column;
   width: 100vw;
   min-height: 100vh;
   padding: 20px 20px;
-  background-color: $grey;
-  color: white;
+  max-width: 1440px;
+  margin: auto;
 }
 
 header {
@@ -32,8 +37,14 @@ main {
 .options {
   display: flex;
   justify-content: center;
+  flex-direction: column;
   gap: 10px;
   margin-bottom: 20px;
+  align-items: center;
+
+  @media screen and (min-width: 576px) {
+    flex-direction: row;
+  }
 
   label {
     display: flex;
@@ -52,7 +63,7 @@ main {
   max-width: 1440px;
   flex-direction: column;
 
-  @media screen and (min-width: 960px) {
+  @media screen and (min-width: 992px) {
     flex-direction: row;
   }
 }
