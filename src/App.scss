@@ -1,0 +1,66 @@
+@import "./styles/__theme.scss";
+
+.app {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  min-height: 100vh;
+  padding: 20px 20px;
+  background-color: $grey;
+  color: white;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+main {
+  flex-grow: 1;
+  display: flex;
+  gap: 20px;
+  max-width: 1440px;
+  flex-direction: column;
+
+  @media screen and (min-width: 960px) {
+    flex-direction: row;
+  }
+}
+
+.box {
+  padding: 15px;
+  flex: 1;
+  background: $grey;
+  border: 2px solid $purple;
+  border-radius: 5px;
+}
+
+.textarea {
+  resize: none;
+  min-height: 150px;
+  transition: all 0.2s;
+
+  &:focus {
+    box-shadow: 0 0 10px $purple, 0 0 20px $purple, 0 0 20px $purple;
+    border: 2px solid white;
+  }
+}
+
+.result {
+  position: relative;
+  display: flex;
+}
+
+.copy_btn {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
