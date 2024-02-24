@@ -81,7 +81,7 @@ function App() {
               />
             </div>
             <div className="result box border">
-              <pre>{contentTodo}</pre>
+              <pre className="result-text">{contentTodo}</pre>
               <button className="copy_btn" onClick={handleCopy}>
                 {copyButtonText}
               </button>

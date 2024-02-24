@@ -70,7 +70,7 @@ main {
 .box {
   display: flex;
   flex-grow: 1;
-  min-height: 30vh;
+  flex-basis: 0px;
 
   @media screen and (min-width: 992px) {
     flex-basis: 50%;
@@ -103,6 +103,14 @@ main {
 .result {
   position: relative;
   display: flex;
+  overflow-x: hidden;
+
+  @media screen and (min-width: 992px) {
+    flex: 1 1 50%;
+  }
+}
+
+.result-text {
   padding: 15px;
   overflow-x: auto;
 }
