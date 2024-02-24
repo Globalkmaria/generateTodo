@@ -1,4 +1,8 @@
-@import "./__theme.scss";
+@import './__theme.scss';
+
+body {
+  background-color: $grey;
+}
 
 button {
   background-color: $purple;
@@ -29,7 +33,7 @@ a {
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   position: relative;
   border: 2px solid $purple;
   border-radius: 2px;
@@ -46,17 +50,17 @@ input[type="checkbox"] {
   opacity: 0.5;
 }
 
-input[type="checkbox"]:hover {
+input[type='checkbox']:hover {
   opacity: 1;
 }
 
-input[type="checkbox"]:checked {
+input[type='checkbox']:checked {
   background-color: $purple;
   opacity: 1;
 }
 
-input[type="checkbox"]:checked:before {
-  content: "";
+input[type='checkbox']:checked:before {
+  content: '';
   position: absolute;
   right: 50%;
   top: 50%;

@@ -1,7 +1,6 @@
-@import "./styles/__theme.scss";
+@import './styles/__theme.scss';
 
 .app {
-  background-color: $grey;
   color: white;
 }
 
@@ -82,7 +81,10 @@ main {
   transition: all 0.2s;
 
   &:focus {
-    box-shadow: 0 0 10px $purple, 0 0 20px $purple, 0 0 20px $purple;
+    box-shadow:
+      0 0 10px $purple,
+      0 0 20px $purple,
+      0 0 20px $purple;
     border: 2px solid white;
   }
 }
