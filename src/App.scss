@@ -120,3 +120,24 @@ main {
   right: 10px;
   bottom: 10px;
 }
+
+.scroll-down {
+  position: fixed;
+  right: 50%;
+  transform: translate(50%, 0);
+  z-index: 1;
+  bottom: 40px;
+  opacity: 0;
+  transition: all 0.2s;
+  border-radius: 50%;
+
+  svg {
+    fill: white;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.scroll-down--show {
+  opacity: 1;
+}

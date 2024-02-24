@@ -2,8 +2,9 @@ import './styles/reset.scss';
 import './styles/common.scss';
 import './App.scss';
 
-import { ChangeEventHandler, useState } from 'react';
+import { ChangeEventHandler, useEffect, useRef, useState } from 'react';
 
+import ArrowIcon from './assets/icons/down-arrow-icon.svg?react';
 import { SAMPLE_CONTENT } from './const';
 import { generateTodo } from './utils';
 
@@ -13,12 +14,14 @@ export interface Options {
 }
 
 function App() {
+  const [showScrollButton, setShowScrollButton] = useState(false);
   const [content, setContent] = useState(SAMPLE_CONTENT);
   const [copiedState, setCopiedState] = useState(false);
   const [options, setOptions] = useState({
     ignoreBlankLines: false,
     removeUnderscore: false,
   });
+  const bottomRef = useRef<HTMLDivElement>(null);
 
   const contentTodo = content.length ? generateTodo(content, options) : '';
   const copyButtonText = copiedState ? 'Copied!' : 'Copy';
@@ -40,6 +43,43 @@ function App() {
     navigator.clipboard.writeText(contentTodo);
     setCopiedState(true);
   };
+
+  function scrollToBottom() {
+    setShowScrollButton(false);
+    bottomRef.current && bottomRef.current.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  useEffect(() => {
+    let lastScrollTop = document.documentElement.scrollTop;
+
+    function handleScroll() {
+      if (bottomRef.current) {
+        const bottomPosition = bottomRef.current.getBoundingClientRect().top;
+        const screenBottom = window.innerHeight;
+
+        if (bottomPosition < screenBottom) {
+          setShowScrollButton(false);
+          return;
+        }
+      }
+
+      const scrollTopPosition = document.documentElement.scrollTop;
+
+      if (scrollTopPosition > lastScrollTop) {
+        setShowScrollButton(true);
+      } else if (scrollTopPosition < lastScrollTop) {
+        setShowScrollButton(false);
+      }
+
+      lastScrollTop = scrollTopPosition <= 0 ? 0 : scrollTopPosition;
+    }
+
+    window.addEventListener('scroll', handleScroll, false);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll, false);
+    };
+  }, []);
 
   return (
     <div className="app">
@@ -82,12 +122,22 @@ function App() {
             </div>
             <div className="result box border">
               <pre className="result-text">{contentTodo}</pre>
-              <button className="copy_btn" onClick={handleCopy}>
+              <button className="copy_btn" onClick={handleCopy} type="button">
                 {copyButtonText}
               </button>
             </div>
           </div>
+
+          <button
+            type="button"
+            title="scroll to down"
+            className={`scroll-down ${showScrollButton ? 'scroll-down--show' : ''}`}
+            onClick={scrollToBottom}
+          >
+            <ArrowIcon />
+          </button>
         </main>
+        <div ref={bottomRef}></div> {/* This is the target element */}
       </div>
     </div>
   );
