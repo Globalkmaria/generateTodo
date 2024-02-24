@@ -1,11 +1,11 @@
-import { ChangeEventHandler, useState } from "react";
+import './styles/reset.scss';
+import './styles/common.scss';
+import './App.scss';
 
-import "./styles/reset.scss";
-import "./styles/common.scss";
-import "./App.scss";
+import { ChangeEventHandler, useState } from 'react';
 
-import { generateTodo } from "./utils";
-import { SAMPLE_CONTENT } from "./const";
+import { SAMPLE_CONTENT } from './const';
+import { generateTodo } from './utils';
 
 export interface Options {
   ignoreBlankLines: boolean;
@@ -20,8 +20,8 @@ function App() {
     removeUnderscore: false,
   });
 
-  const contentTodo = content.length ? generateTodo(content, options) : "";
-  const copyButtonText = copiedState ? "Copied!" : "Copy";
+  const contentTodo = content.length ? generateTodo(content, options) : '';
+  const copyButtonText = copiedState ? 'Copied!' : 'Copy';
 
   const handleOptionsChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setOptions({
@@ -47,8 +47,8 @@ function App() {
         <header>
           <h1 className="title">- [ ] todo generator</h1>
           <div>
-            Made by{" "}
-            <a target="_blank" href="https://github.com/Globalkmaria">
+            Made by{' '}
+            <a target="_blank" href="https://github.com/Globalkmaria" rel="noreferrer">
               Maria
             </a>
           </div>
@@ -56,19 +56,11 @@ function App() {
         <main>
           <div className="options noselect">
             <label>
-              <input
-                name="ignoreBlankLines"
-                type="checkbox"
-                onChange={handleOptionsChange}
-              />
+              <input name="ignoreBlankLines" type="checkbox" onChange={handleOptionsChange} />
               Ignore blank lines
             </label>
             <label>
-              <input
-                type="checkbox"
-                name="removeUnderscore"
-                onChange={handleOptionsChange}
-              />
+              <input type="checkbox" name="removeUnderscore" onChange={handleOptionsChange} />
               Remove leading underscores
             </label>
           </div>
