@@ -68,17 +68,28 @@ main {
 }
 
 .box {
-  padding: 15px;
-  flex: 1;
-  background: $grey;
+  display: flex;
+  flex-grow: 1;
+  min-height: 30vh;
+
+  @media screen and (min-width: 992px) {
+    flex-basis: 50%;
+  }
+}
+
+.border {
   border: 2px solid $purple;
   border-radius: 5px;
 }
 
 .textarea {
   resize: none;
+  flex: 1;
+  padding: 15px;
   min-height: 150px;
+  background: $grey;
   transition: all 0.2s;
+  border-radius: 5px;
 
   &:focus {
     box-shadow:
@@ -92,6 +103,8 @@ main {
 .result {
   position: relative;
   display: flex;
+  padding: 15px;
+  overflow-x: auto;
 }
 
 .copy_btn {

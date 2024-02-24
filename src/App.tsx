@@ -65,19 +65,22 @@ function App() {
             </label>
           </div>
           <div className="generator">
-            <textarea
-              className="box textarea"
-              name=""
-              id="content"
-              placeholder="Your content..."
-              autoComplete="off"
-              autoCorrect="off"
-              autoCapitalize="off"
-              spellCheck="false"
-              onChange={handleContentChange}
-              value={content}
-            />
-            <div className="result box">
+            <div className="box">
+              <textarea
+                className="textarea border"
+                name=""
+                wrap="off"
+                id="content"
+                placeholder="Your content..."
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="off"
+                spellCheck="false"
+                onChange={handleContentChange}
+                value={content}
+              />
+            </div>
+            <div className="result box border">
               <pre>{contentTodo}</pre>
               <button className="copy_btn" onClick={handleCopy}>
                 {copyButtonText}
