@@ -15,6 +15,7 @@ export interface Options {
 
 function App() {
   const [showScrollButton, setShowScrollButton] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
   const [content, setContent] = useState(SAMPLE_CONTENT);
   const [copiedState, setCopiedState] = useState(false);
   const [options, setOptions] = useState({
@@ -45,6 +46,9 @@ function App() {
   };
 
   function scrollToBottom() {
+    if (isScrolling) return;
+
+    setIsScrolling(true);
     setShowScrollButton(false);
     bottomRef.current && bottomRef.current.scrollIntoView({ behavior: 'smooth' });
   }
@@ -59,6 +63,7 @@ function App() {
 
         if (bottomPosition < screenBottom) {
           setShowScrollButton(false);
+          setIsScrolling(false);
           return;
         }
       }
@@ -66,9 +71,10 @@ function App() {
       const scrollTopPosition = document.documentElement.scrollTop;
 
       if (scrollTopPosition > lastScrollTop) {
-        setShowScrollButton(true);
+        !isScrolling && setShowScrollButton(true);
       } else if (scrollTopPosition < lastScrollTop) {
         setShowScrollButton(false);
+        setIsScrolling(false);
       }
 
       lastScrollTop = scrollTopPosition <= 0 ? 0 : scrollTopPosition;
@@ -79,7 +85,7 @@ function App() {
     return () => {
       window.removeEventListener('scroll', handleScroll, false);
     };
-  }, []);
+  }, [isScrolling]);
 
   return (
     <div className="app">
@@ -137,7 +143,7 @@ function App() {
             <ArrowIcon />
           </button>
         </main>
-        <div ref={bottomRef}></div> {/* This is the target element */}
+        <div ref={bottomRef}></div>
       </div>
     </div>
   );
