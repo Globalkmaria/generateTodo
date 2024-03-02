@@ -2,6 +2,7 @@ import './styles/reset.scss';
 import './styles/common.scss';
 import './App.scss';
 
+import { throttle } from 'lodash-es';
 import { ChangeEventHandler, useEffect, useRef, useState } from 'react';
 
 import ArrowIcon from './assets/icons/down-arrow-icon.svg?react';
@@ -15,7 +16,6 @@ export interface Options {
 
 function App() {
   const [showScrollButton, setShowScrollButton] = useState(false);
-  const [isScrolling, setIsScrolling] = useState(false);
   const [content, setContent] = useState(SAMPLE_CONTENT);
   const [copiedState, setCopiedState] = useState(false);
   const [options, setOptions] = useState({
@@ -46,10 +46,6 @@ function App() {
   };
 
   function scrollToBottom() {
-    if (isScrolling) return;
-
-    setIsScrolling(true);
-    setShowScrollButton(false);
     bottomRef.current && bottomRef.current.scrollIntoView({ behavior: 'smooth' });
   }
 
@@ -57,35 +53,34 @@ function App() {
     let lastScrollTop = document.documentElement.scrollTop;
 
     function handleScroll() {
+      const scrollTopPosition = document.documentElement.scrollTop;
+
       if (bottomRef.current) {
         const bottomPosition = bottomRef.current.getBoundingClientRect().top;
         const screenBottom = window.innerHeight;
 
         if (bottomPosition < screenBottom) {
           setShowScrollButton(false);
-          setIsScrolling(false);
+          lastScrollTop = scrollTopPosition <= 0 ? 0 : scrollTopPosition;
           return;
         }
       }
 
-      const scrollTopPosition = document.documentElement.scrollTop;
-
       if (scrollTopPosition > lastScrollTop) {
-        !isScrolling && setShowScrollButton(true);
-      } else if (scrollTopPosition < lastScrollTop) {
+        setShowScrollButton(true);
+      } else {
         setShowScrollButton(false);
-        setIsScrolling(false);
       }
 
       lastScrollTop = scrollTopPosition <= 0 ? 0 : scrollTopPosition;
     }
 
-    window.addEventListener('scroll', handleScroll, false);
+    window.addEventListener('scroll', throttle(handleScroll, 300));
 
     return () => {
-      window.removeEventListener('scroll', handleScroll, false);
+      window.removeEventListener('scroll', handleScroll);
     };
-  }, [isScrolling]);
+  }, []);
 
   return (
     <div className="app">
